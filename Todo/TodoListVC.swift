@@ -10,9 +10,13 @@ import UIKit
 
 class TodoListVC: UITableViewController {
     var arr:[String] = ["pop","non","hellen"]
+    var defauts = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if let items = defauts.object(forKey: "todolist") as? [String]{
+            arr = items
+        }
+        
     }
     
     // MARK - TableView DataSource
@@ -50,6 +54,7 @@ class TodoListVC: UITableViewController {
         let alert = UIAlertController(title: "add new Todo Item", message: "enter name", preferredStyle: .alert)
         let action = UIAlertAction(title: "AddItem", style: .default) { (action) in
             self.arr.append(textfield.text!)
+            self.defauts.set(self.arr, forKey: "todolist")
             self.tableView.reloadData()
         }
         alert.addTextField { (textfieldAlert) in
