@@ -9,7 +9,7 @@
 import UIKit
 
 class TodoListVC: UITableViewController {
-    let arr:[String] = ["pop","non","hellen"]
+    var arr:[String] = ["pop","non","hellen"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -42,6 +42,23 @@ class TodoListVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK - ADD Item
+    
+    
+    @IBAction func AddBTNIPressed(_ sender: Any) {
+        var textfield = UITextField()
+        let alert = UIAlertController(title: "add new Todo Item", message: "enter name", preferredStyle: .alert)
+        let action = UIAlertAction(title: "AddItem", style: .default) { (action) in
+            self.arr.append(textfield.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (textfieldAlert) in
+            textfieldAlert.placeholder = "add name"
+            textfield = textfieldAlert
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
 
